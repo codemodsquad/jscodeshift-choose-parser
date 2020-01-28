@@ -1,6 +1,6 @@
 {
   "extends": ["@jedwards1211/eslint-config", "eslint-config-prettier"],
   "env": {
-    "commonjs": true
+    "node": true
   }
 }

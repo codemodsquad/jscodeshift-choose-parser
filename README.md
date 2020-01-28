@@ -1,30 +1,24 @@
-# untranspiled-js-library-skeleton
+# jscodeshift-choose-parser
 
-[![CircleCI](https://circleci.com/gh/jedwards1211/untranspiled-js-library-skeleton.svg?style=svg)](https://circleci.com/gh/jedwards1211/untranspiled-js-library-skeleton)
-[![Coverage Status](https://codecov.io/gh/jedwards1211/untranspiled-js-library-skeleton/branch/master/graph/badge.svg)](https://codecov.io/gh/jedwards1211/untranspiled-js-library-skeleton)
+[![CircleCI](https://circleci.com/gh/jedwards1211/jscodeshift-choose-parser.svg?style=svg)](https://circleci.com/gh/jedwards1211/jscodeshift-choose-parser)
+[![Coverage Status](https://codecov.io/gh/jedwards1211/jscodeshift-choose-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/jedwards1211/jscodeshift-choose-parser)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![npm version](https://badge.fury.io/js/untranspiled-js-library-skeleton.svg)](https://badge.fury.io/js/untranspiled-js-library-skeleton)
+[![npm version](https://badge.fury.io/js/jscodeshift-choose-parser.svg)](https://badge.fury.io/js/jscodeshift-choose-parser)
 
-This is my personal skeleton for creating an untranspiled JS library npm package. You are welcome to use it.
+### `chooseJSCodeshiftParser(file: string): string | Parser`
 
-## Quick start
-
-```sh
-npx 0-60 clone https://github.com/jedwards1211/untranspiled-js-library-skeleton.git
+```js
+const chooseJSCodeshiftParser = require('jscodeshift-choose-parser')
 ```
 
-## Tools used
+Intelligently chooses a parser for a given file. Basically:
 
-- mocha
-- chai
-- istanbul
-- nyc
-- eslint
-- eslint-watch
-- flow
-- flow-watch
-- husky
-- semantic-release
-- Travis CI
-- Coveralls
+- If extension is `.ts` or `.tsx`:
+  - If `@babel/core` and `@babel/preset-typescript` are installed, return parser that uses `@babel/core` using local babel config
+  - Else return `'ts'`/`'tsx'` depending on extension
+- Else if `@babel/core` is installed, return parser that uses with `@babel/core` using local babel config
+- Else return `undefined`
+
+The default `babylon` parser in `jscodeshift` **does not use your local babel config** AFAIK. This package
+returns a parser that **does use your local babel config**.

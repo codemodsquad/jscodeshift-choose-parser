@@ -1,0 +1,9 @@
+// @flow
+
+interface Parser {
+  parse(code: string, options?: any): any
+}
+
+declare function chooseJSCodeshiftParser(file: string): string | Parser
+
+declare module.exports: typeof chooseJSCodeshiftParser
