@@ -119,6 +119,8 @@
     }
   },
   "dependencies": {
+    "find-root": "^1.1.0",
+    "invalidate-require-cache": "^1.0.0",
     "resolve": "^1.15.0"
   }
 }

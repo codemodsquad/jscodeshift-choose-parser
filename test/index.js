@@ -7,6 +7,7 @@ const pickJSCodeshiftParser = require('..')
 const { describe, it } = require('mocha')
 
 describe('pickJSCodeshiftParser', function() {
+  this.timeout(10000)
   it('.ts file without babel', function() {
     expect(pickJSCodeshiftParser('test.ts')).to.equal('ts')
   })

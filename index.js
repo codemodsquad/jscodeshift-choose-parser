@@ -1,5 +1,7 @@
 var path = require('path')
 var resolve = require('resolve')
+var findRoot = require('find-root')
+var invalidateRequireCache = require('invalidate-require-cache')
 
 module.exports = function chooseJSCodeshiftParser(file) {
   var parentDir = path.dirname(file)
@@ -13,6 +15,7 @@ module.exports = function chooseJSCodeshiftParser(file) {
     }
   }
   try {
+    invalidateRequireCache(path.join(findRoot(file), 'node_modules'))
     var babel = require(resolve.sync('@babel/core', { basedir: parentDir }))
     return {
       parse: function parse(code) {
