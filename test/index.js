@@ -25,23 +25,6 @@ describe('pickJSCodeshiftParser', function() {
       },
     })
     spawnSync('yarn', { cwd })
-    expect(pickJSCodeshiftParser(path.join(cwd, 'test.ts')))
-      .to.have.property('parse')
-      .that.be.an.instanceOf(Function)
-    expect(pickJSCodeshiftParser(path.join(cwd, 'test.tsx')))
-      .to.have.property('parse')
-      .that.be.an.instanceOf(Function)
-  })
-  it('.ts/x files with babel but not @babel/preset-typescript', async function() {
-    const cwd = path.join(os.tmpdir(), 'pickJSCodeshiftParser', 'tsWithBabel')
-    await fs.mkdirs(cwd)
-    await fs.writeJson(path.join(cwd, 'package.json'), {
-      name: 'tsWithBabel',
-      devDependencies: {
-        '@babel/core': '^7.0.0',
-      },
-    })
-    spawnSync('yarn', { cwd })
     expect(pickJSCodeshiftParser(path.join(cwd, 'test.ts'))).to.equal('ts')
     expect(pickJSCodeshiftParser(path.join(cwd, 'test.tsx'))).to.equal('tsx')
   })

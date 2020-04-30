@@ -5,14 +5,7 @@ var invalidateRequireCache = require('invalidate-require-cache')
 module.exports = function chooseJSCodeshiftParser(file) {
   var parentDir = path.dirname(file)
   var tsMatch = /\.(tsx?)$/.exec(file)
-  if (tsMatch) {
-    try {
-      // if @babel/preset-typescript is found, try to parse with @babel/core instead of ts/x.
-      resolve.sync('@babel/preset-typescript', { basedir: parentDir })
-    } catch (error) {
-      return tsMatch[1]
-    }
-  }
+  if (tsMatch) return tsMatch[1]
   try {
     invalidateRequireCache(
       path.resolve(

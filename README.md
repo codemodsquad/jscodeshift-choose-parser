@@ -14,9 +14,7 @@ const chooseJSCodeshiftParser = require('jscodeshift-choose-parser')
 
 Intelligently chooses a parser for a given file. Basically:
 
-- If extension is `.ts` or `.tsx`:
-  - If `@babel/core` and `@babel/preset-typescript` are installed, return parser that uses `@babel/core` using local babel config
-  - Else return `'ts'`/`'tsx'` depending on extension
+- If extension is `.ts` or `.tsx` return `'ts'`/`'tsx'` depending on extension
 - Else if `@babel/core` is installed, return parser that uses with `@babel/core` using local babel config
 - Else return `undefined`
 
