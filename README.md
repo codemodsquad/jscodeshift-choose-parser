@@ -20,3 +20,18 @@ Intelligently chooses a parser for a given file. Basically:
 
 The default `babylon` parser in `jscodeshift` **does not use your local babel config** AFAIK. This package
 returns a parser that **does use your local babel config**.
+
+### Example in a transform
+
+```js
+const chooseJSCodeshiftParser = require('jscodeshift-choose-parser')
+
+module.exports = function(fileInfo, api) {
+  const parser = chooseJSCodeshiftParser(fileInfo.path)
+  return api.jscodeshift
+    .withParser(parser)(fileInfo.source)
+    .findVariableDeclarators('foo')
+    .renameTo('bar')
+    .toSource()
+}
+```
